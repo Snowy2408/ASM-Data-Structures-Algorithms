@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,8 +29,16 @@ public class StudentManager {
     }
 
     public void sortStudentsByMarks() {
-        students.sort(Comparator.comparingDouble(Student::getMarks).reversed());
-        for (int i = 0; i < students.size(); i++) {
+        int n = students.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (students.get(j).getMarks() < students.get(j + 1).getMarks()) {
+                    // Swap students if their marks are in descending order
+                    Student temp = students.get(j);
+                    students.set(j, students.get(j + 1));
+                    students.set(j + 1, temp);
+                }
+            }
             System.out.println("Student " + (i + 1) + ": " + students.get(i));
         }
     }
